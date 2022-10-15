@@ -16,11 +16,11 @@ const {
   goal_9,
   goal_10,
   goal_11,
-} = require("../config/constants");
+} = require('../config/constants');
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
-    "User",
+    'User',
     {
       firstName: {
         type: DataTypes.STRING,
@@ -42,6 +42,7 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           notEmpty: true,
         },
+        unique: true,
       },
       googleId: {
         type: DataTypes.STRING,
@@ -128,43 +129,43 @@ module.exports = (sequelize, DataTypes) => {
   User.associate = (db) => {
     User.hasMany(db.History, {
       foreignKey: {
-        name: "userId",
+        name: 'userId',
         allowNull: false,
       },
-      onDelete: "RESTRICT",
-      onUpdate: "RESTRICT",
+      onDelete: 'RESTRICT',
+      onUpdate: 'RESTRICT',
     });
     User.hasMany(db.Session, {
-      as: "customerId",
+      as: 'customerId',
       foreignKey: {
-        name: "userId",
+        name: 'userId',
         allowNull: false,
       },
     });
     User.hasMany(db.Session, {
-      as: "specialistId",
+      as: 'specialistId',
       foreignKey: {
-        name: "userId",
+        name: 'userId',
         allowNull: false,
       },
     });
     User.hasMany(db.SpecialistVideo, {
       foreignKey: {
-        name: "userId",
+        name: 'userId',
         allowNull: false,
       },
     });
     User.hasMany(db.Chat, {
-      as: "senderId",
+      as: 'senderId',
       foreignKey: {
-        name: "userId",
+        name: 'userId',
         allowNull: false,
       },
     });
     User.hasMany(db.Chat, {
-      as: "receiverId",
+      as: 'receiverId',
       foreignKey: {
-        name: "userId",
+        name: 'userId',
         allowNull: false,
       },
     });
