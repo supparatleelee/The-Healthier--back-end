@@ -56,28 +56,28 @@ module.exports = (sequelize, DataTypes) => {
       },
       gender: {
         type: DataTypes.ENUM(user_gender_male, user_gender_female),
-        allowNull: false,
+        allowNull: true,
         validate: {
           notEmpty: true,
         },
       },
       birthDate: {
         type: DataTypes.DATE,
-        allowNull: false,
+        allowNull: true,
         validate: {
           notEmpty: true,
         },
       },
       weight: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         validate: {
           notEmpty: true,
         },
       },
       height: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         validate: {
           notEmpty: true,
         },

@@ -1,11 +1,11 @@
 const AppError = require('../utils/appError');
 const validator = require('validator');
-
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const { User } = require('../models');
 const { OAuth2Client } = require('google-auth-library');
 
-const client = new OAuth2Client(process.env.CLIENTID);
+// const client = new OAuth2Client(process.env.CLIENTID);
 const genToken = (payload) => {
   return jwt.sign(payload, process.env.JWT_SECRET_KEY || 'private_key', {
     expiresIn: process.env.JWT_EXPIRES || '1d',
@@ -16,10 +16,12 @@ exports.signup = async (req, res, next) => {
   try {
     const { email, firstName, lastName, password, confirmPassword } = req.body;
 
+    console.log(email);
+
     if (!email) {
       throw new AppError('Email is required', 400);
     }
-    if (validator.isEmail(email)) {
+    if (!validator.isEmail(email)) {
       throw new AppError("Wrong email's format", 400);
     }
     if (!firstName) {
@@ -28,7 +30,7 @@ exports.signup = async (req, res, next) => {
     if (!lastName) {
       throw new AppError('Lastname is required', 400);
     }
-    if (validator.equals(password, confirmPassword)) {
+    if (!validator.equals(password, confirmPassword)) {
       throw new AppError('password and confirm password is not match', 400);
     }
 
@@ -40,6 +42,7 @@ exports.signup = async (req, res, next) => {
       password: hashedPassword,
     });
     const token = genToken({ id: user.id });
+
     res.status(201).json({ token });
   } catch (err) {
     next(err);
@@ -74,11 +77,11 @@ exports.getMe = (req, res, next) => {
 exports.googleLogin = async (req, res, next) => {
   try {
     const { tokenId } = req.body;
-    const res = await client.verifyIdToken({
+    const response = await client.verifyIdToken({
       idToken: tokenId,
       audience: process.env.CLIENTID,
     });
-    const { email_verified, given_name, family_name, email } = res.payload;
+    const { email_verified, given_name, family_name, email } = response.payload;
     if (email_verified) {
       const user = await User.findOne({ where: { email } });
       if (user) {
