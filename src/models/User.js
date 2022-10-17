@@ -136,16 +136,16 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: 'RESTRICT',
     });
     User.hasMany(db.Session, {
-      as: 'customerId',
+      as: 'customer',
       foreignKey: {
-        name: 'userId',
+        name: 'customerId',
         allowNull: false,
       },
     });
     User.hasMany(db.Session, {
-      as: 'specialistId',
+      as: 'specialist',
       foreignKey: {
-        name: 'userId',
+        name: 'specialistId',
         allowNull: false,
       },
     });
@@ -156,16 +156,16 @@ module.exports = (sequelize, DataTypes) => {
       },
     });
     User.hasMany(db.Chat, {
-      as: 'senderId',
+      as: 'sender',
       foreignKey: {
-        name: 'userId',
+        name: 'senderId',
         allowNull: false,
       },
     });
     User.hasMany(db.Chat, {
-      as: 'receiverId',
+      as: 'receiver',
       foreignKey: {
-        name: 'userId',
+        name: 'receiverId',
         allowNull: false,
       },
     });

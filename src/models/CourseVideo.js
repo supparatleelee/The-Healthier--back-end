@@ -1,19 +1,19 @@
 module.exports = (sequelize, DataTypes) => {
   const CourseVideo = sequelize.define(
-    "CourseVideo",
+    'CourseVideo',
     {},
     { underscored: true }
   );
   CourseVideo.associate = (db) => {
     CourseVideo.hasMany(db.Course, {
       foreignKey: {
-        name: "courseId",
+        name: 'courseVideoId',
         allowNull: false,
       },
     });
     CourseVideo.belongsTo(db.SpecialistVideo, {
       foreignKey: {
-        name: "specialistVideoId",
+        name: 'specialistVideoId',
         allowNull: false,
       },
     });

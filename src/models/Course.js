@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const Course = sequelize.define(
-    "Course",
+    'Course',
     {
       courseName: {
         type: DataTypes.STRING,
@@ -22,12 +22,12 @@ module.exports = (sequelize, DataTypes) => {
   Course.associate = (db) => {
     Course.hasMany(db.Session, {
       foreignKey: {
-        name: "courseId",
+        name: 'courseId',
         allowNull: false,
       },
     });
     Course.belongsTo(db.CourseVideo, {
-      foreignKey: "courseId",
+      foreignKey: 'courseVideoId',
       allowNull: false,
     });
   };

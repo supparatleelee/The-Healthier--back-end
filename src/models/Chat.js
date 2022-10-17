@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const Chat = sequelize.define(
-    "Chat",
+    'Chat',
     {
       chatLog: {
         type: DataTypes.STRING,
@@ -10,16 +10,16 @@ module.exports = (sequelize, DataTypes) => {
   );
   Chat.associate = (db) => {
     Chat.belongsTo(db.User, {
-      as: "senderId",
+      as: 'sender',
       foreignKey: {
-        name: "chatId",
+        name: 'senderId',
         allowNull: false,
       },
     });
     Chat.belongsTo(db.User, {
-      as: "receiverId",
+      as: 'receiver',
       foreignKey: {
-        name: "chatId",
+        name: 'receiverId',
         allowNull: false,
       },
     });
