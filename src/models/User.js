@@ -45,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
       },
       googleId: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT('long'),
       },
       password: {
         type: DataTypes.STRING,
@@ -62,7 +62,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       birthDate: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: true,
         validate: {
           notEmpty: true,
