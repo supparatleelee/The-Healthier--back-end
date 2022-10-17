@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 const { User } = require('../models');
 const { OAuth2Client } = require('google-auth-library');
 
-// const client = new OAuth2Client(process.env.CLIENTID);
+const client = new OAuth2Client(process.env.CLIENTID);
 const genToken = (payload) => {
   return jwt.sign(payload, process.env.JWT_SECRET_KEY || 'private_key', {
     expiresIn: process.env.JWT_EXPIRES || '1d',
@@ -84,6 +84,10 @@ exports.googleLogin = async (req, res, next) => {
     const { email_verified, given_name, family_name, email } = response.payload;
     if (email_verified) {
       const user = await User.findOne({ where: { email } });
+      if (!user.googleId) {
+        await User.update({ googleId: tokenId }, { where: { id: user.id } });
+        console.log("This user doesn't have googleId");
+      }
       if (user) {
         const token = genToken({ id: user.id });
         res.status(200).json({ token });
@@ -95,6 +99,7 @@ exports.googleLogin = async (req, res, next) => {
           lastName: family_name,
           email: email,
           password: hashedPassword,
+          googleId: tokenId,
         };
         const user = await User.create(newUser);
         const token = genToken({ id: user.id });
