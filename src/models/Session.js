@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const Session = sequelize.define(
-    "Session",
+    'Session',
     {
       followUpDate: {
         type: DataTypes.DATEONLY,
@@ -13,22 +13,22 @@ module.exports = (sequelize, DataTypes) => {
   );
   Session.associate = (db) => {
     Session.belongsTo(db.User, {
-      as: "customerId",
+      as: 'customer',
       foreignKey: {
-        name: "userId",
+        name: 'customerId',
         allowNull: false,
       },
     });
     Session.belongsTo(db.User, {
-      as: "specialistId",
+      as: 'specialist',
       foreignKey: {
-        name: "userId",
+        name: 'specialistId',
         allowNull: false,
       },
     });
     Session.belongsTo(db.Course, {
       foreignKey: {
-        name: "coursesId",
+        name: 'courseId',
         allowNull: false,
       },
     });
