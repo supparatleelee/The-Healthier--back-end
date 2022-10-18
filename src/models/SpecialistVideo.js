@@ -1,6 +1,11 @@
+const {
+  video_status_public,
+  video_status_private,
+} = require('../config/constants');
+
 module.exports = (sequelize, DataTypes) => {
   const SpecialistVideo = sequelize.define(
-    "SpecialistVideo",
+    'SpecialistVideo',
     {
       name: {
         type: DataTypes.STRING,
@@ -16,19 +21,23 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: true,
         },
       },
+      videoStatus: {
+        type: DataTypes.ENUM(video_status_public, video_status_private),
+        defaultValue: video_status_public,
+      },
     },
     { underscored: true }
   );
   SpecialistVideo.associate = (db) => {
     SpecialistVideo.hasMany(db.CourseVideo, {
       foreignKey: {
-        name: "specialistVideoId",
+        name: 'specialistVideoId',
         allowNull: false,
       },
     });
     SpecialistVideo.belongsTo(db.User, {
       foreignKey: {
-        name: "userId",
+        name: 'userId',
         allowNull: false,
       },
     });

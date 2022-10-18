@@ -10,8 +10,10 @@ const notFound = require('./middlewares/notFound');
 const error = require('./middlewares/error');
 const authRoute = require('./routes/authRoute');
 const userRoute = require('./routes/userRoute');
+const http = require('http');
 
 const app = express();
+const server = http.createServer(app);
 
 if ((process.env.NODE_ENV = 'development')) {
   app.use(morgan('dev'));
@@ -26,5 +28,7 @@ app.use('/auth', authRoute);
 app.use('/user', userRoute);
 app.use(notFound);
 app.use(error);
-const port = process.env.PORT || 8000;
-app.listen(port, () => console.log(`server is running on port : ${port}`));
+
+module.exports = server;
+
+// app.listen(port, () => console.log(`server is running on port : ${port}`));
