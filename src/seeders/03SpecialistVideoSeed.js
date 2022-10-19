@@ -2,15 +2,14 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    return queryInterface.bulkInsert('sessions', [
+    return queryInterface.bulkInsert('specialist_videos', [
       {
-        follow_up_date: '2022/04/11',
-        completed: false,
-        course_id: '2',
-        customer_id: '1',
-        specialist_id: '8',
+        name: 'Bench-Press Guide',
+        video_files: '34122314',
+        video_status: 'Private',
         created_at: new Date(),
         updated_at: new Date(),
+        user_id: '1',
       },
     ]);
   },
