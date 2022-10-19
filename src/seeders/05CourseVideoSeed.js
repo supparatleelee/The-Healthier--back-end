@@ -2,8 +2,12 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    return queryInterface.bulkInsert('specialist_expertises', [
-      { expertise_id: '1', user_id: '8' },
+    return queryInterface.bulkInsert('course_videos', [
+      {
+        specialist_video_id: '1',
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
     ]);
   },
 

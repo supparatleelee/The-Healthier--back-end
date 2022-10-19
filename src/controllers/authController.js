@@ -77,6 +77,7 @@ exports.getMe = (req, res, next) => {
 exports.googleLogin = async (req, res, next) => {
   try {
     const { tokenId } = req.body;
+    console.log(tokenId);
     const response = await client.verifyIdToken({
       idToken: tokenId,
       audience: process.env.CLIENTID,
@@ -84,11 +85,11 @@ exports.googleLogin = async (req, res, next) => {
     const { email_verified, given_name, family_name, email } = response.payload;
     if (email_verified) {
       const user = await User.findOne({ where: { email } });
-      if (!user.googleId) {
-        await User.update({ googleId: tokenId }, { where: { id: user.id } });
-        console.log("This user doesn't have googleId");
-      }
       if (user) {
+        if (!user.googleId) {
+          await User.update({ googleId: tokenId }, { where: { id: user.id } });
+          console.log("This user doesn't have googleId");
+        }
         const token = genToken({ id: user.id });
         res.status(200).json({ token });
       } else {

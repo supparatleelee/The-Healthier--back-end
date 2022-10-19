@@ -2,13 +2,15 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    return queryInterface.bulkInsert('chats', [
+    return queryInterface.bulkInsert('sessions', [
       {
-        chat_log: 'Hello',
+        follow_up_date: '2022/04/11',
+        completed: false,
+        course_id: '1',
+        customer_id: '1',
+        specialist_id: '1',
         created_at: new Date(),
         updated_at: new Date(),
-        sender_id: '1',
-        receiver_id: '8',
       },
     ]);
   },
