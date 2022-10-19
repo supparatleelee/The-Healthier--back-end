@@ -17,6 +17,7 @@ const {
   goal_10,
   goal_11,
 } = require('../config/constants');
+const { area_1, area_2, area_3, area_4 } = require('../config/constants');
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
@@ -108,6 +109,15 @@ module.exports = (sequelize, DataTypes) => {
           application_status_rejected
         ),
       },
+      area: {
+        type: DataTypes.ENUM(area_1, area_2, area_3, area_4),
+      },
+      yearsOfExperience: {
+        type: DataTypes.DATE,
+      },
+      description: {
+        type: DataTypes.STRING,
+      },
       goals: {
         type: DataTypes.ENUM(
           goal_1,
@@ -168,6 +178,10 @@ module.exports = (sequelize, DataTypes) => {
         name: 'receiverId',
         allowNull: false,
       },
+    });
+    User.belongsToMany(db.Expertise, {
+      through: db.SpecialistExpertise,
+      foreignKey: 'userId',
     });
   };
   return User;

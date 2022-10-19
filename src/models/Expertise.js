@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const Expertise = sequelize.define(
-    "Expertise",
+    'Expertise',
     {
       name: {
         type: DataTypes.STRING,
@@ -9,11 +9,9 @@ module.exports = (sequelize, DataTypes) => {
     { underscored: true }
   );
   Expertise.associate = (db) => {
-    Expertise.hasMany(db.SpecialistExpertise, {
-      foreignKey: {
-        name: "expertiseId",
-        allowNull: false,
-      },
+    Expertise.belongsToMany(db.User, {
+      through: db.SpecialistExpertise,
+      foreignKey: 'expertiseId',
     });
   };
   return Expertise;
