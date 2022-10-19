@@ -10,11 +10,8 @@ const notFound = require('./middlewares/notFound');
 const error = require('./middlewares/error');
 const authRoute = require('./routes/authRoute');
 const userRoute = require('./routes/userRoute');
-<<<<<<< HEAD
 const http = require('http');
-=======
 const specialistRoute = require('./routes/specialistRoute');
->>>>>>> specialist-controller
 
 const app = express();
 const server = http.createServer(app);
