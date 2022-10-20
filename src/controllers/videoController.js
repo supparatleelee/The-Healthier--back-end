@@ -76,3 +76,40 @@ exports.deleteVideo = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.updateVideo = async (req, res, next) => {
+  try {
+    const { ...updateValue } = req.body;
+    const videoId = req.params.id;
+    const video = await SpecialistVideo.findOne({ where: { id: videoId } });
+
+    if (!video) {
+      throw new appError('Video not found', 400);
+    }
+    if (+req.user.id !== +video.userId) {
+      throw new appError("you don't permission to update videos", 403);
+    }
+    if (updateValue?.videoStatus) {
+      if (
+        updateValue?.videoStatus !== video_status_public &&
+        updateValue?.videoStatus !== video_status_private
+      ) {
+        throw new appError('videoStatus not correct format', 400);
+      }
+    }
+    //Validate name ยังไม่ถูกต้อง
+    if (updateValue?.name) {
+      if (updateValue?.name || updateValue?.name.trim()) {
+        throw new appError('Video must have name', 400);
+      }
+      updateValue.name = updateValue?.name.trim();
+    }
+    await SpecialistVideo.update(updateValue, { where: { id: videoId } });
+    const updatedVideo = await SpecialistVideo.findOne({
+      where: { id: videoId },
+    });
+    res.status(200).json({ updatedVideo });
+  } catch (err) {
+    next(err);
+  }
+};

@@ -5,5 +5,6 @@ const router = express.Router();
 
 router.route('/').post(upload.single('video'), videoController.uploadVideo);
 router.delete('/:id', videoController.deleteVideo);
+router.post('/:id', videoController.updateVideo);
 
 module.exports = router;

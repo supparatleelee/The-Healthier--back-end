@@ -8,8 +8,16 @@ module.exports = {
         current_price: '100',
         created_at: new Date(),
         updated_at: new Date(),
-        user_id: '1',
-        package_id: '1',
+        user_id: '13',
+        package_id: '3',
+      },
+      {
+        payment: 'Cash',
+        current_price: '100',
+        created_at: new Date(),
+        updated_at: new Date(),
+        user_id: '14',
+        package_id: '5',
       },
     ]);
   },

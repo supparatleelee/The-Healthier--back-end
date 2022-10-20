@@ -10,6 +10,20 @@ module.exports = {
         created_at: new Date(),
         updated_at: new Date(),
       },
+      {
+        name: 'Basic',
+        price: '100',
+        duration: '30days',
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      {
+        name: 'Basic',
+        price: '150',
+        duration: '60days',
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
     ]);
   },
 
