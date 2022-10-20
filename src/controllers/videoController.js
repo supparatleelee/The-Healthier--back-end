@@ -3,20 +3,11 @@ const {
   video_status_public,
   video_status_private,
 } = require('../config/constants');
-const specialistService = require('../services/specialistService');
+
 const appError = require('../utils/appError');
 const cloudinary = require('../utils/cloudinary');
-const { SpecialistVideo } = require('../models');
+const { SpecialistVideo, sequelize } = require('../models');
 const fs = require('fs');
-
-exports.getSpecialistData = async (req, res, next) => {
-  try {
-    const specialists = await specialistService.findSpecialists();
-    res.status(200).json({ specialists });
-  } catch (err) {
-    next(err);
-  }
-};
 
 exports.uploadVideo = async (req, res, next) => {
   try {
@@ -59,5 +50,29 @@ exports.uploadVideo = async (req, res, next) => {
     if (req.file) {
       fs.unlinkSync(req.file.path);
     }
+  }
+};
+
+exports.deleteVideo = async (req, res, next) => {
+  const t = await sequelize.transaction();
+  try {
+    const video = await SpecialistVideo.findOne({
+      where: { id: req.params.id },
+    });
+    if (!video) {
+      throw new appError('video was not found', 400);
+    }
+    if (req.user.id !== video.userId) {
+      throw new appError('no permission to delete', 403);
+    }
+    await SpecialistVideo.destroy({
+      transaction: t,
+      where: { id: req.params.id },
+    });
+    await t.commit();
+    res.status(200).json({ message: 'success delete' });
+  } catch (err) {
+    await t.rollback();
+    next(err);
   }
 };
