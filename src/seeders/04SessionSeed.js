@@ -4,10 +4,11 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     return queryInterface.bulkInsert('sessions', [
       {
-        follow_up_date: '2022/04/11',
+        follow_up_date: '2022/10/26',
         completed: false,
-        course_id: '1',
-        customer_id: '1',
+        start_date: '2022/10/20',
+        course_duration: '15',
+        customer_id: '13',
         specialist_id: '1',
         created_at: new Date(),
         updated_at: new Date(),
