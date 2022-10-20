@@ -11,9 +11,9 @@ exports.application_status_rejected = 'Rejected';
 // TRAINER FOOD_PLANNER
 
 exports.area_1 = 'Nutritionist';
-exports.area_2 = 'Physical Therapist';
-exports.area_3 = 'Trainer';
-exports.area_4 = 'Food Planner';
+exports.area_2 = 'Physiotherapist';
+exports.area_3 = 'Personal Trainer';
+// exports.area_4 = 'Food Planner';
 
 exports.goal_1 = 'Back Pain';
 exports.goal_2 = 'Neck and Shoulder Ache';

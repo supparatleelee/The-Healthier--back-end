@@ -110,9 +110,9 @@ module.exports = (sequelize, DataTypes) => {
         ),
       },
       area: {
-        type: DataTypes.ENUM(area_1, area_2, area_3, area_4),
+        type: DataTypes.ENUM(area_1, area_2, area_3),
       },
-      yearsOfExperience: {
+      years_of_experience: {
         type: DataTypes.DATE,
       },
       description: {

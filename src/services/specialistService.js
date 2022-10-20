@@ -10,11 +10,16 @@ exports.findSpecialists = async () => {
   //ต้องไม่รวม userId ด้วยหรือไม่ ?
   const specialists = await User.findAll({
     where: { role: 'Specialist' },
-    attributes: { exclude: 'password' },
+    attributes: {
+      exclude: ['password', 'goals', 'healthCoin', 'createdAt', 'updatedAt'],
+    },
     include: [
       {
         model: Expertise,
-        attributes: { exclude: ['id', 'createdAt', 'updatedAt'] },
+        attributes: {
+          exclude: ['id', 'createdAt', 'updatedAt'],
+        },
+        through: { attributes: [] },
       },
       { model: SpecialistVideo, attributes: { excluide: 'userId' } },
     ],
