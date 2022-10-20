@@ -21,7 +21,9 @@ module.exports = async (req, res, next) => {
 
     const user = await User.findOne({
       where: { id: payload.id },
-      attributes: { exclude: 'password' },
+      attributes: {
+        exclude: ['password', 'googleId', 'createdAt', 'updatedAt'],
+      },
     });
     if (!user) {
       throw new AppError('unauthenticated', 401);
