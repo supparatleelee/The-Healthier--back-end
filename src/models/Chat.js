@@ -2,24 +2,19 @@ module.exports = (sequelize, DataTypes) => {
   const Chat = sequelize.define(
     'Chat',
     {
-      chatLog: {
+      message: {
+        type: DataTypes.TEXT('long'),
+      },
+      sender: {
         type: DataTypes.STRING,
       },
     },
     { underscored: true }
   );
   Chat.associate = (db) => {
-    Chat.belongsTo(db.User, {
-      as: 'sender',
+    Chat.belongsTo(db.ChatRoom, {
       foreignKey: {
-        name: 'senderId',
-        allowNull: false,
-      },
-    });
-    Chat.belongsTo(db.User, {
-      as: 'receiver',
-      foreignKey: {
-        name: 'receiverId',
+        name: 'chatRoomId',
         allowNull: false,
       },
     });
