@@ -165,17 +165,17 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
     });
-    User.hasMany(db.Chat, {
-      as: 'sender',
+    User.hasMany(db.ChatRoom, {
+      as: 'user1',
       foreignKey: {
-        name: 'senderId',
+        name: 'user1Id',
         allowNull: false,
       },
     });
-    User.hasMany(db.Chat, {
-      as: 'receiver',
+    User.hasMany(db.ChatRoom, {
+      as: 'user2',
       foreignKey: {
-        name: 'receiverId',
+        name: 'user2Id',
         allowNull: false,
       },
     });
