@@ -2,11 +2,10 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    return queryInterface.bulkInsert('chats', [
+    return queryInterface.bulkInsert('chat_rooms', [
       {
-        message: 'Hello',
-        sender: 'user1',
-        chat_room_id: '1',
+        user1_id: '1',
+        user2_id: '2',
         created_at: new Date(),
         updated_at: new Date(),
       },
