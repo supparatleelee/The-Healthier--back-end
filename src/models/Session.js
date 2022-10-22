@@ -8,6 +8,16 @@ module.exports = (sequelize, DataTypes) => {
       completed: {
         type: DataTypes.BOOLEAN,
       },
+      courseDuration: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+        },
+      },
+      startDate: {
+        type: DataTypes.DATEONLY,
+      },
     },
     { underscored: true }
   );
@@ -26,11 +36,9 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
     });
-    Session.belongsTo(db.Course, {
-      foreignKey: {
-        name: 'courseId',
-        allowNull: false,
-      },
+    Session.belongsToMany(db.SpecialistVideo, {
+      through: db.SessionVideo,
+      foreignKey: 'sessionId',
     });
   };
   return Session;

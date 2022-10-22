@@ -29,11 +29,9 @@ module.exports = (sequelize, DataTypes) => {
     { underscored: true }
   );
   SpecialistVideo.associate = (db) => {
-    SpecialistVideo.hasMany(db.CourseVideo, {
-      foreignKey: {
-        name: 'specialistVideoId',
-        allowNull: false,
-      },
+    SpecialistVideo.belongsToMany(db.Session, {
+      through: db.SessionVideo,
+      foreignKey: 'SpecialistVideoId',
     });
     SpecialistVideo.belongsTo(db.User, {
       foreignKey: {
