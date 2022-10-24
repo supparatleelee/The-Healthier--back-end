@@ -5,7 +5,7 @@ module.exports = {
     return queryInterface.bulkInsert('chats', [
       {
         message: 'Hello',
-        sender: 'user1',
+        sender: '1',
         chat_room_id: '1',
         created_at: new Date(),
         updated_at: new Date(),
