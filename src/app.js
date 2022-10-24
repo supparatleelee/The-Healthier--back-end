@@ -15,6 +15,7 @@ const specialistRoute = require('./routes/specialistRoute');
 const authenticate = require('./middlewares/authenticate');
 const videoRoute = require('./routes/videoRoute');
 const sessionRoute = require('./routes/sessionRoute');
+const chatRoute = require('./routes/chatRoute');
 
 const app = express();
 const server = http.createServer(app);
@@ -33,6 +34,8 @@ app.use('/user', userRoute);
 app.use('/specialist', authenticate, specialistRoute);
 app.use('/video', authenticate, videoRoute);
 app.use('/session', sessionRoute);
+app.use('/chat', authenticate, chatRoute);
+
 app.use(notFound);
 app.use(error);
 

@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   ChatRoom.associate = (db) => {
     ChatRoom.hasMany(db.Chat, {
       foreignKey: {
-        name: 'ChatRoomId',
+        name: 'chatRoomId',
         allowNull: false,
       },
     });
