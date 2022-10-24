@@ -1,6 +1,8 @@
 const server = require('./app');
 const { Server } = require('socket.io');
 const { instrument } = require('@socket.io/admin-ui');
+const chalk = require('chalk');
+const onlineUser = {};
 
 const io = new Server(server, {
   cors: {
@@ -11,8 +13,29 @@ const io = new Server(server, {
 });
 instrument(io, { auth: false });
 
-io.on('connection', (socket) => {
+io.use((socket, next) => {
+  const userId = socket.handshake.auth.myId;
+  if (!userId) {
+    return next(new Error('invalid username'));
+  }
+  onlineUser[userId] = socket.id;
+  console.log(chalk.green(`User online : ${Object.keys(onlineUser).length}`));
+  console.log(chalk.red(`User Connected: ${socket.id}`));
+  console.log(onlineUser);
+  next();
+});
+
+io.on('connection', async (socket) => {
   console.log(`User Connected: ${socket.id}`);
+
+  socket.on('sendMessage', (newMessage) => {
+    console.log(chalk.blue(newMessage.message));
+    console.log(onlineUser[newMessage.receiver]);
+
+    socket
+      .to(onlineUser[newMessage.receiver])
+      .emit('receiveMessage', newMessage);
+  });
 
   socket.on('join_room', (data) => {
     socket.join(data);
