@@ -316,7 +316,7 @@ module.exports = {
         height: '170',
         role: 'Customer',
 
-        health_coin: 0,
+        health_coin: 1,
         goals: 'Neck and Shoulder Ache',
         created_at: new Date(),
         updated_at: new Date(),
@@ -350,7 +350,7 @@ module.exports = {
         height: '180',
         role: 'Customer',
 
-        health_coin: 0,
+        health_coin: 2,
         goals: 'Lowerbody Pain',
         created_at: new Date(),
         updated_at: new Date(),
@@ -367,7 +367,7 @@ module.exports = {
         height: '170',
         role: 'Customer',
 
-        health_coin: 0,
+        health_coin: 3,
         goals: 'After Surgery Recovery',
         created_at: new Date(),
         updated_at: new Date(),
@@ -384,7 +384,7 @@ module.exports = {
         height: '176',
         role: 'Customer',
 
-        health_coin: 0,
+        health_coin: 2,
         goals: 'Burn Fat',
         created_at: new Date(),
         updated_at: new Date(),
@@ -401,7 +401,7 @@ module.exports = {
         height: '173',
         role: 'Customer',
 
-        health_coin: 0,
+        health_coin: 3,
         goals: 'Ready to Play',
         created_at: new Date(),
         updated_at: new Date(),
@@ -418,7 +418,7 @@ module.exports = {
         height: '170',
         role: 'Customer',
 
-        health_coin: 0,
+        health_coin: 2,
         goals: 'Building Muscle',
         created_at: new Date(),
         updated_at: new Date(),

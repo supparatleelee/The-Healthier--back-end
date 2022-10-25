@@ -45,6 +45,9 @@ module.exports = (sequelize, DataTypes) => {
         },
         unique: true,
       },
+      profileImage: {
+        type: DataTypes.STRING,
+      },
       googleId: {
         type: DataTypes.TEXT('long'),
       },
