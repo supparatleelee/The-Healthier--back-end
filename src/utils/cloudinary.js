@@ -2,7 +2,7 @@ const cloudinary = require('../config/cloudinary');
 
 exports.upload = async (path, publicId) => {
   const option = {
-    resource_type: 'video',
+    resource_type: 'auto',
     user_filename: true,
     overwrite: true,
     unique_filename: false,
