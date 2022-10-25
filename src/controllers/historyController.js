@@ -22,9 +22,9 @@ exports.updateHistory = async (req, res, next) => {
       include: { model: Package },
       order: [['createdAt', 'DESC']],
     });
-    console.log(history?.createdAt);
-    console.log(Date.now() - history?.createdAt);
-    console.log(history?.Package.duration * 24 * 60 * 60 * 1000);
+    // console.log(history?.createdAt);
+    // console.log(Date.now() - history?.createdAt);
+    // console.log(history?.Package.duration * 24 * 60 * 60 * 1000);
     if (
       history &&
       Date.now() - history?.createdAt <

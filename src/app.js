@@ -33,7 +33,7 @@ app.use('/auth', authRoute);
 app.use('/user', userRoute);
 app.use('/specialist', authenticate, specialistRoute);
 app.use('/video', authenticate, videoRoute);
-app.use('/session', sessionRoute);
+app.use('/session', authenticate, sessionRoute);
 app.use('/history', authenticate, historyRoute);
 app.use(notFound);
 app.use(error);
