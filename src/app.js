@@ -1,5 +1,5 @@
 // const { sequelize } = require('./models');
-// sequelize.sync();
+// sequelize.sync({ force: true });
 
 require('dotenv').config();
 
@@ -16,6 +16,7 @@ const authenticate = require('./middlewares/authenticate');
 const videoRoute = require('./routes/videoRoute');
 const sessionRoute = require('./routes/sessionRoute');
 const chatRoute = require('./routes/chatRoute');
+const historyRoute = require('./routes/historyRoute');
 
 const app = express();
 const server = http.createServer(app);
@@ -33,7 +34,8 @@ app.use('/auth', authRoute);
 app.use('/user', userRoute);
 app.use('/specialist', authenticate, specialistRoute);
 app.use('/video', authenticate, videoRoute);
-app.use('/session', sessionRoute);
+app.use('/session', authenticate, sessionRoute);
+app.use('/history', authenticate, historyRoute);
 app.use('/chat', authenticate, chatRoute);
 
 app.use(notFound);
