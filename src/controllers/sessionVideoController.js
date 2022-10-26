@@ -52,7 +52,7 @@ exports.getAllSessionVideo = async (req, res, next) => {
 
 exports.createSessionVideo = async (req, res, next) => {
   try {
-    const { sessionId, specialistVideoId } = req.body;
+    const { sessionId, specialistVideoIds } = req.body;
 
     const role = req.user.role;
     if (role !== user_role_2) {
@@ -70,19 +70,20 @@ exports.createSessionVideo = async (req, res, next) => {
       );
     }
 
-    const video = await SpecialistVideo.findOne({
-      where: { id: specialistVideoId },
-    });
-    if (!video?.userId || video?.userId !== req.user.id) {
-      throw new appError(
-        'You have no permission to add video, please upload your video first',
-        400
-      );
+    for (const videoId of specialistVideoIds) {
+      const video = await SpecialistVideo.findOne({
+        where: { id: videoId },
+      });
+      if (!video?.userId || video?.userId !== req.user.id) {
+        throw new appError(
+          'You have no permission to add video, please upload your video first',
+          400
+        );
+      }
+      const data = { specialistVideoId: videoId, sessionId: sessionId };
+      const newSessionVideo = await SessionVideo.create(data);
     }
 
-    const data = { specialistVideoId: specialistVideoId, sessionId: sessionId };
-
-    const newSessionVideo = await SessionVideo.create(data);
     const createdSessionVideo = await SessionVideo.findAll({
       where: { sessionId: sessionId },
     });
