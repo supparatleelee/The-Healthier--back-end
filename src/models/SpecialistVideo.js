@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
   SpecialistVideo.associate = (db) => {
     SpecialistVideo.belongsToMany(db.Session, {
       through: db.SessionVideo,
-      foreignKey: 'SpecialistVideoId',
+      foreignKey: 'specialistVideoId',
     });
     SpecialistVideo.belongsTo(db.User, {
       foreignKey: {

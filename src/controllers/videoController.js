@@ -89,6 +89,7 @@ exports.updateVideo = async (req, res, next) => {
     if (+req.user.id !== +video.userId) {
       throw new appError("you don't permission to update videos", 403);
     }
+
     if (updateValue?.videoStatus) {
       if (
         updateValue?.videoStatus !== video_status_public &&
@@ -98,17 +99,40 @@ exports.updateVideo = async (req, res, next) => {
       }
     }
     //Validate name ยังไม่ถูกต้อง
-    if (updateValue?.name) {
-      if (updateValue?.name || updateValue?.name.trim()) {
-        throw new appError('Video must have name', 400);
-      }
-      updateValue.name = updateValue?.name.trim();
+    if (!updateValue?.name) {
+      throw new appError('Video must have name', 400);
     }
+    if (updateValue?.name.trim() === '') {
+      throw new appError('Video must have name', 400);
+    }
+    updateValue.name = updateValue?.name.trim();
     await SpecialistVideo.update(updateValue, { where: { id: videoId } });
     const updatedVideo = await SpecialistVideo.findOne({
       where: { id: videoId },
     });
     res.status(200).json({ updatedVideo });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.getPublicVideoBySpecialistId = async (req, res, next) => {
+  try {
+    const specialistId = req.params.specialistId;
+    const videos = await SpecialistVideo.findAll({
+      where: { userId: specialistId, videoStatus: video_status_public },
+    });
+    res.status(200).json({ videos });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.getMyVideoByUserId = async (req, res, next) => {
+  try {
+    const userId = req.user.id;
+    const videos = await SpecialistVideo.findAll({ where: { userId } });
+    res.status(200).json({ videos });
   } catch (err) {
     next(err);
   }
