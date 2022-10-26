@@ -4,7 +4,6 @@ const {
   SpecialistVideo,
   Expertise,
 } = require('../models');
-const { Op } = require('sequelize');
 
 exports.findSpecialists = async () => {
   //ต้องไม่รวม userId ด้วยหรือไม่ ?
