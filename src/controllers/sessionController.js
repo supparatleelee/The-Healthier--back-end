@@ -15,7 +15,7 @@ exports.createSession = async (req, res, next) => {
     const currentSession = await Session.findOne({
       where: { customerId: req.user.id, specialistId: specialistId },
     });
-    if (currentSession?.completed !== 'false') {
+    if (currentSession?.completed == false) {
       throw new appError(
         'Your session with this specialist is not completed',
         400
