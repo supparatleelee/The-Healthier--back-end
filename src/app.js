@@ -20,6 +20,7 @@ const chatRoute = require('./routes/chatRoute');
 const historyRoute = require('./routes/historyRoute');
 const sessionVideoRoute = require('./routes/sessionVideoRoute');
 const specialistExpertiseRoute = require('./routes/specialistExpertiseRoute');
+const expertisesRoute = require('./routes/expertisesRoute');
 
 const app = express();
 const server = http.createServer(app);
@@ -42,6 +43,7 @@ app.use('/history', authenticate, historyRoute);
 app.use('/chat', authenticate, chatRoute);
 app.use('/sessionvideo', authenticate, sessionVideoRoute);
 app.use('/specialistexpertise', authenticate, specialistExpertiseRoute);
+app.use('/expertises', authenticate, expertisesRoute);
 
 app.use(notFound);
 app.use(error);

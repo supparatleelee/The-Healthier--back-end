@@ -6,7 +6,7 @@ const {
 const specialistService = require('../services/specialistService');
 const appError = require('../utils/appError');
 const cloudinary = require('../utils/cloudinary');
-const { SpecialistVideo } = require('../models');
+const { SpecialistVideo, User } = require('../models');
 const fs = require('fs');
 
 exports.getSpecialistData = async (req, res, next) => {
@@ -17,6 +17,20 @@ exports.getSpecialistData = async (req, res, next) => {
     next(err);
   }
 };
+
+// exports.registerSpecialists = async (req, res, next) => {
+//   try {
+//     const id = req.user.id;
+//     const { role, area, description } = req.body;
+//     const obj = { role };
+//     await User.update(obj, { where: { id } });
+//     res
+//       .status(200)
+//       .json({ message: 'Successfully registered as a specialist' });
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
 
 exports.uploadVideo = async (req, res, next) => {
   try {
