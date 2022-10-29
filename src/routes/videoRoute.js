@@ -4,8 +4,8 @@ const upload = require('../middlewares/upload');
 const router = express.Router();
 
 router.route('/').post(upload.single('video'), videoController.uploadVideo);
-router.delete('/:id', videoController.deleteVideo);
-router.post('/:id', videoController.updateVideo);
+router.post('/updateVideo', videoController.updateVideo);
+router.delete('/:videoId', videoController.deleteVideo);
 router.get('/:specialistId', videoController.getPublicVideoBySpecialistId);
 router.get('/', videoController.getMyVideoByUserId);
 

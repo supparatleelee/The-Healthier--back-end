@@ -54,10 +54,11 @@ exports.uploadVideo = async (req, res, next) => {
 };
 
 exports.deleteVideo = async (req, res, next) => {
-  const t = await sequelize.transaction();
+  let t;
   try {
+    t = await sequelize.transaction();
     const video = await SpecialistVideo.findOne({
-      where: { id: req.params.id },
+      where: { id: req.params.videoId },
     });
     if (!video) {
       throw new appError('video was not found', 400);
@@ -67,7 +68,7 @@ exports.deleteVideo = async (req, res, next) => {
     }
     await SpecialistVideo.destroy({
       transaction: t,
-      where: { id: req.params.id },
+      where: { id: req.params.videoId },
     });
     await t.commit();
     res.status(200).json({ message: 'success delete' });
@@ -80,7 +81,7 @@ exports.deleteVideo = async (req, res, next) => {
 exports.updateVideo = async (req, res, next) => {
   try {
     const { ...updateValue } = req.body;
-    const videoId = req.params.id;
+    const videoId = updateValue?.id;
     const video = await SpecialistVideo.findOne({ where: { id: videoId } });
 
     if (!video) {
