@@ -1,10 +1,71 @@
-const { Session, Package, User, History } = require('../models');
+const {
+  Session,
+  Package,
+  User,
+  History,
+  SpecialistExpertise,
+  Expertise,
+} = require('../models');
 const appError = require('../utils/appError');
 const { user_role_1, user_role_2 } = require('../config/constants');
 
 exports.getSessions = async (req, res, next) => {
-  const session = await Session.findAll();
-  res.status(200).json({ session });
+  try {
+    const session = await Session.findAll({
+      where: { customerId: req.user.id, specialistId: +req.params.id },
+      include: [
+        {
+          model: User,
+          as: 'specialist',
+          attributes: { exclude: 'password' },
+          include: [
+            {
+              model: Expertise,
+              attributes: {
+                exclude: ['id', 'createdAt', 'updatedAt'],
+              },
+              through: { attributes: [] },
+            },
+          ],
+        },
+      ],
+    });
+    res.status(200).json({ session });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.getMySpecialists = async (req, res, next) => {
+  try {
+    const mySpecialist = await Session.findAll({
+      where: {
+        customerId: req.user.id,
+      },
+      exclude: ['customerId'],
+      include: [
+        {
+          model: User,
+          as: 'specialist',
+          attributes: {
+            exclude: ['id', 'createdAt', 'updatedAt', 'password'],
+          },
+          include: [
+            {
+              model: Expertise,
+              attributes: {
+                exclude: ['id', 'createdAt', 'updatedAt'],
+              },
+              through: { attributes: [] },
+            },
+          ],
+        },
+      ],
+    });
+    res.status(200).json(mySpecialist);
+  } catch (err) {
+    next(err);
+  }
 };
 
 exports.createSession = async (req, res, next) => {
