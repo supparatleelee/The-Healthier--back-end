@@ -1,5 +1,5 @@
 const { user_role_1, user_role_2 } = require('../config/constants');
-const { Session, SessionVideo, SpecialistVideo } = require('../models');
+const { Session, SessionVideo, SpecialistVideo, User } = require('../models');
 const { Op } = require('sequelize');
 const appError = require('../utils/appError');
 
@@ -42,7 +42,10 @@ exports.getAllSessionVideo = async (req, res, next) => {
       where: {
         id: session.map((item) => item.id),
       },
-      include: { model: SpecialistVideo, through: { attributes: [] } },
+      include: [
+        { model: SpecialistVideo, through: { attributes: [] } },
+        { model: User, as: 'customer', attributes: { exclude: 'password' } },
+      ],
     });
     res.status(200).json({ sessionVideo });
   } catch (err) {
