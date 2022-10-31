@@ -87,8 +87,14 @@ exports.createSessionVideo = async (req, res, next) => {
       const newSessionVideo = await SessionVideo.create(data);
     }
 
-    const createdSessionVideo = await SessionVideo.findAll({
-      where: { sessionId: sessionId },
+    // const createdSessionVideo = await SessionVideo.findAll({
+    //   where: { sessionId: sessionId },
+    // });
+    const createdSessionVideo = await Session.findAll({
+      where: {
+        id: sessionId,
+      },
+      include: [{ model: SpecialistVideo, through: { attributes: [] } }],
     });
     res.status(201).json({ sessionVideo: createdSessionVideo });
   } catch (err) {
