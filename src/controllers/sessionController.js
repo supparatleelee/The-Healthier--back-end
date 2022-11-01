@@ -3,7 +3,7 @@ const {
   Package,
   User,
   History,
-  SpecialistExpertise,
+  SpecialistVideo,
   Expertise,
 } = require('../models');
 const appError = require('../utils/appError');
@@ -58,6 +58,7 @@ exports.getMySpecialists = async (req, res, next) => {
               },
               through: { attributes: [] },
             },
+            { model: SpecialistVideo, attributes: { excluide: 'userId' } },
           ],
         },
       ],
