@@ -1,5 +1,7 @@
+const chalk = require('chalk');
+
 const { ChatRoom, User, Chat } = require('../models');
-const { Op } = require('sequelize');
+const { Op, EmptyResultError } = require('sequelize');
 
 exports.getChat = async (req, res, next) => {
   const specialist = req.params.id;
@@ -48,5 +50,38 @@ exports.newMessage = async (req, res, next) => {
     res.status(201).json({ newMessage });
   } catch (err) {
     console.log(err);
+  }
+};
+
+exports.createRoom = async (req, res, next) => {
+  try {
+    const user2Id = +req.body.id;
+    const user1Id = req.user.id;
+    const doubleCheck = await ChatRoom.findOne({
+      where: {
+        [Op.or]: [
+          {
+            user1Id: user1Id,
+            user2Id: user2Id,
+          },
+          {
+            user1Id: user2Id,
+            user2Id: user1Id,
+          },
+        ],
+      },
+    });
+    if (!doubleCheck) {
+      const newChatRoom = await ChatRoom.create({
+        user2Id: user2Id,
+        user1Id: user1Id,
+      });
+      res.status(200).json({ message: 'room successfully created' });
+    } else {
+      res.status(200).json({ doubleCheck });
+    }
+  } catch (err) {
+    console.log(err);
+    next(err);
   }
 };
