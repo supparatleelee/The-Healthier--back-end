@@ -6,11 +6,9 @@ exports.createSpecialistExpertise = async (req, res, next) => {
     const { expertiseIds } = req.body;
     const userId = req.user.id;
 
-    if (req.user.role !== user_role_2) {
-      throw new appError('Invalid role, please become a specialist first', 403);
-    }
+    console.log(req.body);
 
-    for (const expertiseId of expertiseIds) {
+    for (let expertiseId of expertiseIds) {
       console.log(expertiseId);
       const expertise = await Expertise.findOne({ where: { id: expertiseId } });
       if (!expertise?.id) {
@@ -23,7 +21,9 @@ exports.createSpecialistExpertise = async (req, res, next) => {
     const createdSpecialistExpertise = await SpecialistExpertise.findAll({
       where: { userId: userId },
     });
-    res.status(200).json({ specialistExpertise: createdSpecialistExpertise });
+    res
+      .status(200)
+      .json({ specialistExpertise: createdSpecialistExpertise, req: req.body });
   } catch (err) {
     next(err);
   }
