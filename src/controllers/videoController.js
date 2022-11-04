@@ -41,7 +41,6 @@ exports.uploadVideo = async (req, res, next) => {
     const newVideo = await SpecialistVideo.create(data);
     const videos = await SpecialistVideo.findAll({
       where: { userId: req.user.id },
-      //อาจจะต้อง Include Course หรือ CourseVideo
     });
     res.status(201).json({ videos });
   } catch (err) {
@@ -99,7 +98,6 @@ exports.updateVideo = async (req, res, next) => {
         throw new appError('videoStatus not correct format', 400);
       }
     }
-    //Validate name ยังไม่ถูกต้อง
     if (!updateValue?.name) {
       throw new appError('Video must have name', 400);
     }

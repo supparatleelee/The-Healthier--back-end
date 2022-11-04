@@ -7,7 +7,7 @@ const {
   Expertise,
 } = require('../models');
 const appError = require('../utils/appError');
-const { user_role_1, user_role_2 } = require('../config/constants');
+const { user_role_2 } = require('../config/constants');
 
 exports.getSessions = async (req, res, next) => {
   try {
@@ -91,7 +91,7 @@ exports.createSession = async (req, res, next) => {
       include: { model: Package },
       order: [['createdAt', 'DESC']],
     });
-    //Check customerId !== specialistId
+
     const specialist = await User.findOne({ where: { id: specialistId } });
     if (+req.user.id === +specialistId) {
       throw new appError('Invalid Session', 400);
@@ -100,7 +100,6 @@ exports.createSession = async (req, res, next) => {
       throw new appError('you are not booking with specialist', 400);
     }
 
-    //Check package ยังไม่หมดอายุnpm
     if (
       Date.now() - history?.createdAt >
       history?.Package.duration * 24 * 60 * 60 * 1000
@@ -115,13 +114,12 @@ exports.createSession = async (req, res, next) => {
       Date.now() - history?.createdAt >=
       courseDuration * 24 * 60 * 60 * 1000
     ) {
-      //Check package duration มากว่า course Duration
       throw new appError(
         'your package time is not enough for course time',
         400
       );
     }
-    //Check user healthcoin ,
+
     if (req.user?.healthCoin <= 0) {
       throw new appError(
         "you don't have enough health coin, please buy new package",

@@ -1,6 +1,5 @@
 const { user_role_1, user_role_2 } = require('../config/constants');
 const { Session, SessionVideo, SpecialistVideo, User } = require('../models');
-const { Op } = require('sequelize');
 const appError = require('../utils/appError');
 
 exports.getAllSessionVideo = async (req, res, next) => {
@@ -87,9 +86,6 @@ exports.createSessionVideo = async (req, res, next) => {
       const newSessionVideo = await SessionVideo.create(data);
     }
 
-    // const createdSessionVideo = await SessionVideo.findAll({
-    //   where: { sessionId: sessionId },
-    // });
     const createdSessionVideo = await Session.findAll({
       where: {
         id: sessionId,

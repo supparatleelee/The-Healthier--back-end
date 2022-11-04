@@ -1,7 +1,5 @@
-const chalk = require('chalk');
-
 const { ChatRoom, User, Chat } = require('../models');
-const { Op, EmptyResultError } = require('sequelize');
+const { Op } = require('sequelize');
 
 exports.getChat = async (req, res, next) => {
   const specialist = req.params.id;

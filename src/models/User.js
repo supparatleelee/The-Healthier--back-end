@@ -17,7 +17,7 @@ const {
   goal_10,
   goal_11,
 } = require('../config/constants');
-const { area_1, area_2, area_3, area_4 } = require('../config/constants');
+const { area_1, area_2, area_3 } = require('../config/constants');
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(

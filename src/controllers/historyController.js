@@ -23,11 +23,7 @@ exports.createPayment = async (req, res, next) => {
       customer: customer.id,
     });
 
-    // req.omise = { amount: charge, status: charge.status };
-
     const data = { userId: req.user.id };
-    // const { payment, currentPrice } = req.body;
-    // const packageId = req.params.id;
     const package = await Package.findOne({ where: { id: packageId } });
     if (!package) {
       throw new appError('Package invalid', 400);
@@ -39,21 +35,12 @@ exports.createPayment = async (req, res, next) => {
     if (!payment) {
       throw new appError('payment method is required', 400);
     }
-    // ต้องเช็คว่า user ซื้อ package ไปแล้วหรือไม่ ถ้าต้องเช็ต ต้องเช็ค package หมดอายุหรือยังด้วย
+
     const history = await History.findOne({
       where: { userId: data.userId },
       include: { model: Package },
       order: [['createdAt', 'DESC']],
     });
-    // console.log(history?.createdAt);
-    // console.log((history?.createdAt).valueOf());
-    // console.log(Date.now() - history?.createdAt);
-    // console.log(Date.now());
-    // console.log(Date.now() - Date(history?.createdAt).valueOf());
-    // console.log(history?.Package.duration * 24 * 60 * 60 * 1000);
-    console.log(history, 'HHHHHHHHHHH');
-    // console.log(Date.now() - history?.createdAt.valueOf());
-    // console.log(history?.Package.duration * 24 * 60 * 60 * 1000);
 
     if (
       history &&

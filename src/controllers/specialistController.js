@@ -18,20 +18,6 @@ exports.getSpecialistData = async (req, res, next) => {
   }
 };
 
-// exports.registerSpecialists = async (req, res, next) => {
-//   try {
-//     const id = req.user.id;
-//     const { role, area, description } = req.body;
-//     const obj = { role };
-//     await User.update(obj, { where: { id } });
-//     res
-//       .status(200)
-//       .json({ message: 'Successfully registered as a specialist' });
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
-
 exports.uploadVideo = async (req, res, next) => {
   try {
     const { name, videoStatus } = req.body;
@@ -64,7 +50,6 @@ exports.uploadVideo = async (req, res, next) => {
     const newVideo = await SpecialistVideo.create(data);
     const videos = await SpecialistVideo.findAll({
       where: { userId: req.user.id },
-      //อาจจะต้อง Include Course หรือ CourseVideo
     });
     res.status(201).json({ videos });
   } catch (err) {

@@ -4,19 +4,5 @@ module.exports = (sequelize, DataTypes) => {
     {},
     { underscored: true, timestamps: false }
   );
-  // SpecialistExpertise.associate = (db) => {
-  //   SpecialistExpertise.belongsTo(db.User, {
-  //     foreignKey: {
-  //       name: 'userId',
-  //       allowNull: false,
-  //     },
-  //   });
-  //   SpecialistExpertise.belongsTo(db.Expertise, {
-  //     foreignKey: {
-  //       name: 'expertiseId',
-  //       allowNull: false,
-  //     },
-  //   });
-  // };
   return SpecialistExpertise;
 };

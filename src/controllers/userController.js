@@ -8,7 +8,6 @@ exports.updateUser = async (req, res, next) => {
   try {
     const { ...updateValue } = req.body;
 
-    // console.log(updateValue);
     if (updateValue.years_of_experience) {
       updateValue.years_of_experience = new Date(
         Date.now() -

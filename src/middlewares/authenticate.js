@@ -28,7 +28,6 @@ module.exports = async (req, res, next) => {
     if (!user) {
       throw new AppError('unauthenticated', 401);
     }
-    //เพิ่ม key ใน req obj เพื่อส่งให้ middleware ตัวถัดไป
     req.user = user;
     next();
   } catch (err) {

@@ -1,7 +1,3 @@
-// const { sequelize } = require('./models');
-// // sequelize.drop()
-// sequelize.sync({ force: true });
-
 require('dotenv').config();
 
 const express = require('express');
@@ -51,5 +47,3 @@ app.use(notFound);
 app.use(error);
 
 module.exports = server;
-
-// app.listen(port, () => console.log(`server is running on port : ${port}`));
