@@ -1,0 +1,24 @@
+{
+  "development": {
+    "username": "doadmin",
+    "password": "AVNS_3THlUa2FP1RSWd08F8J",
+    "database": "TheHealthier",
+    "port": "25060",
+    "host": "db-mysql-sgp1-51904-do-user-12742274-0.b.db.ondigitalocean.com",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}

@@ -1,0 +1,5 @@
+*Seed ทีละไฟล์*
+sequelize db:seed --seed *ใส่ชื่อไฟล์ที่ต้องการ Seed ตัวอย่าง: 3SpecialistVideoSeed.js*
+
+*Seed ทั้งหมดทีเดียว* เรียงตามลำดับเลขนำหน้าของไฟล์ที่เรียงไว้
+sequelize db:seed:all
